@@ -6,9 +6,9 @@
       height="80"
     >
     <!-- logo -->
-      <div class="logo d-flex align-center" @click="PushToHomePage()">
-        <h2>Detect ETT Tube</h2>
-      </div>
+      <v-btn class="logo d-flex align-center" @click="PushToHomePage()">
+        <h3>Detect ETT Tube</h3>
+      </v-btn>
 
       <v-spacer></v-spacer>
 
@@ -17,6 +17,7 @@
         text
         x-large
         @click="PushToLearnPage()"
+        id="LearnBtn"
       >
         <v-icon class="mr-2"  large>mdi-book</v-icon>
         <span>Learn</span>
@@ -27,6 +28,7 @@
         text
         x-large
         @click="PushToStartPage()"
+        id="StartBtn"
       >
         
         <v-icon class="mr-2"  large>mdi-television</v-icon>
@@ -34,13 +36,14 @@
       </v-btn>
 
       <v-btn
-        href="https://reurl.cc/1m5l5G"
+        href="https://reurl.cc/AOVQEp"
         target="_blank"
         text
         x-large
+        id="GithubBtn"
       >
         <v-icon class="mr-2" large>mdi-github</v-icon>
-        <span>GitHub</span>
+        <span id="GithubText">GitHub</span>
       </v-btn>
       
     </v-app-bar>
@@ -49,7 +52,7 @@
       <router-view></router-view>
     </v-main>
 
-    <v-footer dark ><v-icon class="mr-2" >mdi-copyright</v-icon>Made by changjam</v-footer>
+    <v-footer dark><v-icon class="mr-2" >mdi-copyright</v-icon>Made by changjam</v-footer>
   </v-app>
 </template>
 
@@ -88,17 +91,43 @@ export default {
 </script>
 
 <style>
+.v-main__wrap{
+  background-color: rgba(212, 208, 208, 0.857);
+}
+
+.container {
+  background-color:white;
+}
+
+.v-btn__content{
+  font-size: 20px;
+  font-weight:700;
+}
+
 .v-btn{
   text-transform:none;
 }
-.logo{
-  cursor: pointer;
-}
+
 
 .splitLine{
   background-color: black;
   height: 2px;
   margin:5vw 0px;
+}
+
+@media screen and (max-width:700px) {
+  #LearnBtn,#StartBtn,#GithubText{
+    display: none;
+  }
+}
+
+@media screen and (max-width:500px) {
+  .logo{
+    font-size: 14px;
+  }
+  #LearnBtn,#StartBtn,#GithubText{
+    display: none;
+  }
 }
 
 </style>

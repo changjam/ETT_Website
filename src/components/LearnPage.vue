@@ -3,7 +3,7 @@
     <!-- ---Title--- -->
     <v-row class="Title text-center ">
       <v-col class="">
-        <h1 class="display-3 font-weight-bold">
+        <h1 class="Title-text font-weight-bold">
           使用說明
         </h1>
       </v-col>
@@ -12,7 +12,7 @@
     <v-row id="main-input" class="main"  width="100vw" >
       <!-- Main Left -->
       <v-col class="main-left" >
-        <h1 style="  white-space: nowrap;">上傳你要偵測的胸腔X光影像</h1>
+        <h1 class="main-text-title">上傳你要偵測的胸腔X光影像</h1>
         <div class="box">
           <img src="../assets/images/XRay1.png" alt="">
         </div>
@@ -26,7 +26,7 @@
       <!-- Main Right -->
       <v-col class="main-right">
         <img class="NumberIMG" src="../assets/images/b1.png" alt="">
-        <p >上傳你要偵測的胸腔X光影像</p>
+        <p >上傳你要偵測的胸腔X光影像，若輸入的圖片非胸腔X光，系統會無法判斷。</p>
         <img class="NumberIMG" src="../assets/images/b2.png" alt="">
         <p>按下"開始偵測"按鈕，系統便會開始預測X光影像。</p>
       </v-col>
@@ -44,7 +44,7 @@
           <img class="NumberIMG" src="../assets/images/b2.png" alt="">
           <p>接下來會使用4個不同的Model對影像進行預測，系統會將四個model的結果圖系集，讓預測精準度更高。</p>
           <img class="NumberIMG" src="../assets/images/b3.png" alt="">
-          <p>然後再經過一系列的處理最終會得到兩個座標(氣管內管端點與氣管分岔點)，計算兩點的距離，並使用距離判斷插管位置是否正確。</p>
+          <p>然後再經過一系列的處理最終會得到兩個座標(氣管內管端點與氣管分岔點)，計算兩點的距離，並藉由距離判斷插管位置是否正確。</p>
           <img class="NumberIMG" src="../assets/images/b4.png" alt="">
           <p>距離在3~10公分內為「位置正常」，在範圍之外都會輸出「位置不正常」。</p>
         </v-col>
@@ -57,7 +57,7 @@
     <v-row id="main-output" class="main"  width="100vw">
       <!-- Main Left -->
       <v-col class="main-left text-center align-center" >
-        <h1>輸出結果</h1>
+        <h1 class="main-text-title">輸出結果</h1>
         <div class="box">
           <img src="../assets/images/XRay2.png" alt="">
         </div>
@@ -85,6 +85,12 @@
       <img class="NumberIMG" src="../assets/images/b3.png" alt="">
       <p>最後使用者如果滿意標點的結果，可以將影像儲存。</p>
     </div>
+
+    <div class="btn-wrap">
+      <v-btn large color="blue lighten-2" @click="PushToStartPage()"> 
+      開始使用
+      </v-btn>
+    </div>
     
 
 
@@ -97,6 +103,14 @@
 
     data: () => ({
     }),
+    methods:{
+      PushToStartPage(){
+        let currentPageName = this.$router.currentRoute.name
+        if(currentPageName != 'start'){
+          this.$router.push({name:'start'})
+        }
+      },
+    }
   }
 </script>
 
@@ -104,6 +118,17 @@
 .container{
   width: 70vw;
 }
+.Title-text{
+  font-size: 60px;
+}
+.main-text-title{
+  white-space: nowrap;
+}
+.btn-wrap{
+  display: flex;
+  justify-content: center;
+}
+
 
 /* main input */
 #main-input .main-right{
@@ -188,25 +213,85 @@ p{
   height: 25px;
 }
 
-/* Small Screen */
-@media screen and (max-width:1000px){
-  .container{
-    width: 80vw;
+/* ipad Screen */
+@media screen and (max-width:850px){
+  .Title-text{
+    font-size: 50px;
   }
-}
+  .main-text-title{
+    white-space: nowrap;
+    font-size: 32px;
+  }
 
-@media screen and (max-width:800px) {
-  .container{
-    width: 100vw;
+  /* main input */
+  #main-input .main-right{
+    margin-top: 40px;
+  }
+
+  #main-input .main-right p{
+    font-size: 20px;
+  }
+  /* main learn */
+
+  #main-learn .outerBox .innerBox p {
+    font-size: 20px;
+  }
+
+  /* main output */
+  #main-output {
+    margin-bottom: 5px;
+  }
+
+  #main-output .main-right{
+    margin:auto 0;
   }
 
   #main-output .main-right p{
     font-size: 35px;
   }
+
+  #main-bottom{
+    font-size: 20px;
+  }
+}
+/* phone Screen */
+@media screen and (max-width:500px) {
+  .container{
+    width: 80%;
+  }
+
+  .main-text-title{
+    white-space: nowrap;
+    font-size: 28px;
+  }
+
+
+  #main-output .main-right p{
+    font-size: 35px;
+  }
+
   #main-input .main-right{
     margin-top: 50px;
-    white-space: nowrap;
+
   }
+
+  .main .main-left .box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 5px black solid;
+    width: 250px;
+    height: 250px;
+  }
+
+  .main .main-left .box img{
+    width: 100%;
+  }
+
+   #main-output .main-right p{
+    font-size: 30px;
+  }
+
 }
 
 </style>
