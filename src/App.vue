@@ -36,7 +36,7 @@
       </v-btn>
 
       <v-btn
-        href="https://reurl.cc/AOVQEp"
+        href="https://github.com/changjam/ETT_Website"
         target="_blank"
         text
         x-large
@@ -60,6 +60,7 @@
 
 export default {
   name: 'App',
+  
 
   components: {
   },
@@ -91,6 +92,7 @@ export default {
 </script>
 
 <style>
+
 .v-main__wrap{
   background-color: rgba(212, 208, 208, 0.857);
 }

@@ -36,9 +36,9 @@
       </v-col>
 
       <v-col class="main-bottom" align="left">
-          <h1 >File Name：001.png</h1>
-          <h1 >Distence：6cm</h1>
-          <h1 >Result：位置正常</h1>
+          <h1 >File Name：{{imgFile.fileName}}</h1>
+          <h1 >Distence：{{imgFile.Distence}}</h1>
+          <h1 >Result：{{imgFile.Result}}</h1>
       </v-col>
     </v-row>
   </v-container>
@@ -61,9 +61,9 @@
       new_url:require('../assets/images/XRay2.png'),
       //img imformation
       imgFile:{
-        fileName:"",
-        Distence:"",
-        Result:"",
+        fileName:"001.png",
+        Distence:"6cm",
+        Result:"位置正常",
       }
     }),
     methods: {
@@ -72,27 +72,32 @@
         if (this.imageObj) {
           this.loading = true;
 
+          //處理資料型態
           let formData = new FormData();
           formData.append("file", this.imageObj)
           formData.append("fileName", this.imageObj.name)
+
           // 使用Axios，post資料給後端
-          // axios.post("/upload-files", formData).then(response => {
+          // this.axios.post("/upload-files", formData).then(response => {
           //       console.log("Success!");
           //       console.log({ response });
           //   }).catch(error => {
-          //       console.log({ error });
+          //       console.error({ error });
           //   });
-          //模擬
+
           setTimeout(()=>{
-            this.loading = false;
-            this.showOutput = true;
-            //要等到頁面完全加載才能滾動
-            this.$nextTick(()=>{
-              document.querySelector("#main-output").scrollIntoView({ block: 'end',  behavior: 'smooth' })
-              this.onfile2()
-            })
-          },2000);
+            this.pageScrollDown()
+          },2000)
         }
+      },
+      pageScrollDown(){
+        this.loading = false;
+        this.showOutput = true;
+        //要等到頁面完全加載才能滾動
+        this.$nextTick(()=>{
+          document.querySelector("#main-output").scrollIntoView({ block: 'end',  behavior: 'smooth' })
+          this.onfile2()
+        })
       },
       onfile() {
         if(this.imageObj){
@@ -176,8 +181,8 @@ p{
   justify-content: center;
   align-items: center;
   border: 5px rgb(0, 0, 0) solid;
-  width: 500px;
-  height: 500px;
+  width: 420px;
+  height: 420px;
 }
 
 .main-bottom{
@@ -187,7 +192,7 @@ p{
 }
 
 .main-bottom h1{
-  font-size: 50px;
+  font-size: 40px;
   margin:10px 0px;
   white-space: nowrap;
 }

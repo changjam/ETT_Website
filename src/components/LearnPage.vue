@@ -26,9 +26,9 @@
       <!-- Main Right -->
       <v-col class="main-right">
         <img class="NumberIMG" src="../assets/images/b1.png" alt="">
-        <p >上傳你要偵測的胸腔X光影像，若輸入的圖片非胸腔X光，系統會無法判斷。</p>
+        <p class="quote">上傳你要偵測的胸腔X光影像，若輸入的圖片非胸腔X光，系統會無法判斷。</p>
         <img class="NumberIMG" src="../assets/images/b2.png" alt="">
-        <p>按下"開始偵測"按鈕，系統便會開始預測X光影像。</p>
+        <p class="quote">按下"開始偵測"按鈕，系統便會開始預測X光影像。</p>
       </v-col>
     </v-row>
 
@@ -40,13 +40,13 @@
         <h1>按下開始偵測後，我們的系統究竟做了哪些事情呢?</h1>
         <v-col class="innerBox">
           <img class="NumberIMG" src="../assets/images/b1.png" alt="">
-          <p>系統會先對影像做前置處理，讓氣管內管可以更明顯。會先做對比度的處理，再做感興趣區域分析，將影像中非必要的部分裁切掉，保留我們需要的部分給模型預測。</p>
+          <p class="quote">系統會先對影像做前置處理，讓氣管內管可以更明顯。會先做對比度的處理，再做感興趣區域分析，將影像中非必要的部分裁切掉，保留我們需要的部分給模型預測。</p>
           <img class="NumberIMG" src="../assets/images/b2.png" alt="">
-          <p>接下來會使用4個不同的Model對影像進行預測，系統會將四個model的結果圖系集，讓預測精準度更高。</p>
+          <p class="quote">接下來會使用4個不同的Model對影像進行預測，系統會將四個model的結果圖系集，讓預測精準度更高。</p>
           <img class="NumberIMG" src="../assets/images/b3.png" alt="">
-          <p>然後再經過一系列的處理最終會得到兩個座標(氣管內管端點與氣管分岔點)，計算兩點的距離，並藉由距離判斷插管位置是否正確。</p>
+          <p class="quote">然後再經過一系列的處理最終會得到兩個座標(氣管內管端點與氣管分岔點)，計算兩點的距離，並藉由距離判斷插管位置是否正確。</p>
           <img class="NumberIMG" src="../assets/images/b4.png" alt="">
-          <p>距離在3~10公分內為「位置正常」，在範圍之外都會輸出「位置不正常」。</p>
+          <p class="quote">距離在3~10公分內為「位置正常」，在範圍之外都會輸出「位置不正常」。</p>
         </v-col>
       </v-col>
     </v-row>
@@ -79,11 +79,11 @@
     </v-row>
     <div id="main-bottom">
       <img class="NumberIMG" src="../assets/images/b1.png" alt="">
-      <p>輸出結果會標記氣管內插管的端點以及隆突端點(氣管分岔點)，同時也會計算兩點間的距離，並告知使用者插管位置是否合理。</p>
+      <p class="quote">輸出結果會標記氣管內插管的端點以及隆突端點(氣管分岔點)，同時也會計算兩點間的距離，並告知使用者插管位置是否合理。</p>
       <img class="NumberIMG" src="../assets/images/b2.png" alt="">
-      <p>"切換"按鈕可以讓使用者對照比對，確認系統預測的標點是否正確。</p>
+      <p class="quote">"切換"按鈕可以讓使用者對照比對，確認系統預測的標點是否正確。</p>
       <img class="NumberIMG" src="../assets/images/b3.png" alt="">
-      <p>最後使用者如果滿意標點的結果，可以將影像儲存。</p>
+      <p class="quote">最後使用者如果滿意標點的結果，可以將影像儲存。</p>
     </div>
 
     <div class="btn-wrap">
@@ -118,35 +118,29 @@
 .container{
   width: 70vw;
 }
+
+/* Title */
 .Title-text{
   font-size: 60px;
 }
 .main-text-title{
   white-space: nowrap;
 }
-.btn-wrap{
-  display: flex;
-  justify-content: center;
-}
-
 
 /* main input */
 #main-input .main-right{
   margin-top: 50px;
 }
 
-#main-input .main-right p{
-  font-size: 30px;
-}
 
 /* main learn */
 #main-learn .outerBox .innerBox{
   margin-top: 10px;
 }
 
-#main-learn .outerBox .innerBox p {
-  font-size: 30px;
-}
+/* #main-learn .outerBox .innerBox p {
+  font-size: 20px;
+} */
 
 /* main output */
 #main-output {
@@ -158,16 +152,16 @@
 }
 
 #main-output .main-right p{
-  font-size: 40px;
-}
-
-#main-bottom{
-  font-size: 30px;
+  font-size: 35px;
 }
 
 /* main class共同 */
 p{
   font-weight: 600;
+}
+
+.quote{
+  font-size: 20px;
 }
 
 .main .main-left{
@@ -207,11 +201,17 @@ p{
   font-size: 20px;
 }
 
+.btn-wrap{
+  display: flex;
+  justify-content: center;
+}
+
 /* other */
 .NumberIMG{
   width: 25px;
   height: 25px;
 }
+
 
 /* ipad Screen */
 @media screen and (max-width:850px){

@@ -57,7 +57,7 @@
       </h1>
 
       <v-row justify="center" width="100%">
-        <v-card class="member" elevation="5" shaped :color="Member.Color"
+        <v-card class="member" elevation="5" shaped :style="Member.Color"
           v-for="Member in MemberList" :key="Member.id">
           <v-row align="center" justify="center">
             <img id="personPhoto" :src="Member.Imgurl" alt="">
@@ -101,7 +101,7 @@
       }],
       MemberList:[{
         id:"01",
-        Color:"red lighten-4",
+        Color:"border: 5px solid #E57373",
         Title:"組長/張家誠",
         Text1:"統籌所有進度。",
         Text2:"前端：網頁製作、API串接。",
@@ -110,16 +110,16 @@
       },
       {
         id:"02",
-        Color:"blue lighten-4",
+        Color:"border: 5px solid #81C784",
         Title:"美宣/黃振家",
         Text1:"前端：網頁設計，團隊中的美術擔當。",
-        Text2:"後端：模型訓練。",
+        Text2:"後端：模型訓練，績效評估。",
         Text3:"立志成為建築師。",
         Imgurl:require('../assets/images/allen.jpg'),
       },
       {
         id:"03",
-        Color:"purple lighten-4",
+        Color:"border: 5px solid #BA68C8",
         Title:"後端/吳冠毅",
         Text1:"後端：資料前處理、模型訓練及績效評估。",
         Text2:"網站：網站架設、API串接。",
@@ -128,7 +128,7 @@
       },
       {
         id:"04",
-        Color:"orange lighten-4",
+        Color:"border: 5px solid #64B5F6",
         Title:"後端/江昱賢",
         Text1:"後端：包括模型訓練、端點計算。",
         Text2:"網站：網站架設、模型的參數調適。",
@@ -157,6 +157,7 @@
 <style scoped>
 .arrow{
   width: 100%;
+  z-index: 1;
 }
 
 .container{
@@ -181,6 +182,11 @@ p{
   width: 600px;
 }
 
+.member .row{
+  height: 100%;
+  width: 100%;
+}
+
 .member .name{
   font-weight: 700;
   font-size: 40px;
@@ -194,9 +200,12 @@ p{
 
 .Introduce{
   height: 80vh;
+  position: relative;
+  z-index: 1;
 }
 
 .Introduce .Introduce-text{
+  font-family: 'fantasy';
   font-size: 50px;
   font-weight: 300;
 }
@@ -260,6 +269,9 @@ p{
     position: absolute;
     padding: 10px;
     margin: 0px;
+  }
+  .member{
+    cursor: pointer;
   }
   .member .name{
     font-size: 35px;
