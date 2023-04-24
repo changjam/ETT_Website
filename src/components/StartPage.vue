@@ -37,7 +37,7 @@
 
       <v-col class="main-bottom" align="left">
           <h1 >File Name：{{imgFile.fileName}}</h1>
-          <h1 >Distence：{{imgFile.Distence}}</h1>
+          <h1 >Distance：{{imgFile.Distance}} cm</h1>
           <h1 >Result：{{imgFile.Result}}</h1>
       </v-col>
     </v-row>
@@ -55,15 +55,17 @@
       switchToOriginal:true,
       //img
       Imgtemp:null,
-      url: null,
       imageObj: null,
+      ROIImageObj:null,
       new_imageObj: null,
-      new_url:require('../assets/images/XRay2.png'),
+      url: null,
+      ROIImageObj_url:null,
+      new_url:null,
       //img imformation
       imgFile:{
-        fileName:"001.png",
-        Distence:"6cm",
-        Result:"位置正常",
+        fileName:"",
+        Distance:"",
+        Result:"",
       }
     }),
     methods: {
@@ -78,16 +80,52 @@
           formData.append("fileName", this.imageObj.name)
 
           // 使用Axios，post資料給後端
-          // this.axios.post("/upload-files", formData).then(response => {
-          //       console.log("Success!");
-          //       console.log({ response });
-          //   }).catch(error => {
-          //       console.error({ error });
-          //   });
+          this.axios.post(
+            "http://127.0.0.1:8000/predict", formData, { 
+            headers:{"Content-Type":"multipart/form-data"},
+            }
+          ).then(
+            response => {
+              // console.log("Success!:",response.data);
+              // 從回傳的 JSON 中解析出圖片資料和其他結果
+              let preProcessImg = response.data.preProcess_img;
+              let predictImg = response.data.predict_img;
 
-          setTimeout(()=>{
-            this.pageScrollDown()
-          },2000)
+              this.imgFile.Distance = response.data.distance;
+              this.imgFile.Result = response.data.state;
+              this.imgFile.fileName = 'new_' + this.imageObj.name;
+              // 解碼 base64 編碼的圖片資料為二進位資料
+              preProcessImg = window.atob(preProcessImg);
+              predictImg = window.atob(predictImg);
+              
+              let preProcessImg_ary = new Array(preProcessImg.length);
+              for (let i = 0; i < preProcessImg.length; i++) {
+                  preProcessImg_ary[i] = preProcessImg.charCodeAt(i);
+              }
+              let predictImg_ary = new Array(predictImg.length);
+              for (let i = 0; i < predictImg.length; i++) {
+                predictImg_ary[i] = predictImg.charCodeAt(i);
+              }
+
+              preProcessImg_ary = new Uint8Array(preProcessImg_ary);
+              predictImg_ary = new Uint8Array(predictImg_ary);
+
+              // 將二進位資料轉換為 Blob 物件
+              this.ROIImageObj = new Blob([preProcessImg_ary], { type: 'image/jpeg' });
+              this.new_imageObj = new Blob([predictImg_ary], { type: 'image/jpeg' });
+
+              // this.new_imageObj = new Blob([response.data], { type: "image/jpeg" });
+              this.new_url= URL.createObjectURL(this.new_imageObj)
+              this.ROIImageObj_url= URL.createObjectURL(this.ROIImageObj)
+
+              this.pageScrollDown()
+          }).catch(error => {
+              this.loading = false;
+              window.alert('Predict Fail');
+              this.imageObj = null;
+              this.url = null;
+              console.error(error);
+          });
         }
       },
       pageScrollDown(){
@@ -108,8 +146,7 @@
       },
       onfile2() {
         // 這邊要改new_imgOBJ
-        if(this.imageObj){
-          // this.new_url= URL.createObjectURL(this.new_imageObj)
+        if(this.new_imageObj){
           this.Imgtemp = this.new_url;
         }else{
           this.new_url = null;
@@ -119,7 +156,7 @@
       showOriginImage(){
         if(this.switchToOriginal){
           // new to old
-          this.Imgtemp = this.url;
+          this.Imgtemp = this.ROIImageObj_url;
         }else{
           //old to new
           this.Imgtemp = this.new_url;
@@ -136,11 +173,11 @@
 					canvas.height = image.height;
 					var context = canvas.getContext("2d");
 					context.drawImage(image, 0, 0, image.width, image.height);
-					var url = canvas.toDataURL("image/png"); //得到圖片的base64編碼
+					var canvas_url = canvas.toDataURL("image/png"); //得到圖片的base64編碼
 					var a = document.createElement("a"); // 生成一个a元素
 					var event = new MouseEvent("click"); // 創建一個點擊事件
 					a.download = name || "photo"; // 設置圖片名稱
-					a.href = url;
+					a.href = canvas_url;
 					a.dispatchEvent(event); //觸發事件
 				};
 				image.src = imgsrc;
