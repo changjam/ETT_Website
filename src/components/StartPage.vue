@@ -81,7 +81,8 @@
 
           // 使用Axios，post資料給後端
           this.axios.post(
-            "http://127.0.0.1:8000/predict", formData, { 
+            "https://fast-api-v1-3rde35nuwq-de.a.run.app/predict", formData, { 
+            // "http://127.0.0.1:8000/predict", formData, { 
             headers:{"Content-Type":"multipart/form-data"},
             }
           ).then(
